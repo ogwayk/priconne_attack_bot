@@ -26,7 +26,7 @@ async def on_message(message):
 
         # 凸完了チャンネルの取得
         guild = client.get_guild(int(os.environ['GUILD_ID']))
-        channel = get_channel_name(guild)
+        channel = get_channel(guild)
         # 凸完了チャンネルからメッセージを拾ってくる
         histories = await channel.history(limit = None).flatten()
         reactions = await get_today_reactions(histories, channel)
@@ -42,7 +42,7 @@ async def on_message(message):
                 if match is not None:
                     member_dict[match.group()] = get_reaction_member(users, guild_users)
         else:
-             text = 'うまくリアクションが取得できませんでした'
+             text = '私、相手のスリーサイズはわかるんですが今日の残り凸はわかりません…。'
              await reply(message, message.author.mention, text)
         
         # n+1凸にスタンプ押している人をn凸のリストから削除する
@@ -62,8 +62,8 @@ async def on_message(message):
         text += '全体残り凸数：{0}'.format(attack_count)
         await reply(message, message.author.mention, text)
 
-# 凸完了チャンネルの名前を取得する
-def get_channel_name(guild):
+# 凸完了チャンネルを取得する
+def get_channel(guild):
     text_channels = guild.text_channels
     for channel in text_channels:
         # 月と凸完了が入っていて、作成年が今年のチャンネル
