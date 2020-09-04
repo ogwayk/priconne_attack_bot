@@ -25,7 +25,6 @@ async def on_message(message):
             return
 
         # 凸完了チャンネルの取得
-        print(type(os.environ['GUILD_ID']))
         guild = client.get_guild(int(os.environ['GUILD_ID']))
         channel = get_channel_name(guild)
         # 凸完了チャンネルからメッセージを拾ってくる
