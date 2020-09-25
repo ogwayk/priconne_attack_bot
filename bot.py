@@ -28,6 +28,7 @@ async def on_message(message):
         guild = client.get_guild(int(os.environ['GUILD_ID']))
         channel = get_channel(guild)
         # 凸完了チャンネルからメッセージを拾ってくる
+        print(channel.name)
         histories = await channel.history(limit = None).flatten()
         reactions = await get_today_reactions(histories, channel)
 
