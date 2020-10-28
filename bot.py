@@ -28,19 +28,20 @@ async def on_message(message):
         guild = client.get_guild(int(os.environ['GUILD_ID']))
         channel = get_channel(guild)
         # 凸完了チャンネルからメッセージを拾ってくる
-        print(channel.name)
+        # print(channel.name)
         histories = await channel.history(limit = None).flatten()
         reactions = await get_today_reactions(histories, channel)
-        print(reactions)
+        # print(reactions)
         # 数字のスタンプのリアクションのメンバーを取得
         text = ''
         member_dict = {}
-        guild_users = guild.members.fetch()
+        guild_users = guild.members()
+        print(guild.member_count)
         print(guild_users)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
-                print(users)
+                # print(users)
                 match = re.search(r'\d', reaction.emoji)
                 if match is not None:
                     member_dict[match.group()] = get_reaction_member(users, guild_users)
