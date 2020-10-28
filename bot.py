@@ -37,8 +37,8 @@ async def on_message(message):
         text = ''
         member_dict = {}
         guild_users = guild.members
-        print(guild.member_count)
-        print(guild.members)
+        #print(channel.member_count)
+        print(channel.members)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
