@@ -6,10 +6,10 @@ import re
 import datetime
 import os
 
-#intents = discord.Intents.all()
-#intents.typing = False
-#client = discord.Client(intents = intents)
-client = discord.Client()
+intents = discord.Intents.all()
+intents.typing = False
+client = discord.Client(intents = intents)
+#client = discord.Client()
 
 @client.event
 # 起動通知
