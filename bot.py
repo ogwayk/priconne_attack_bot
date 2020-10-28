@@ -70,7 +70,7 @@ async def on_message(message):
             text += '残り{0}凸の人\n{1}\n\n'.format(num, ', '.join(dict_value), len(dict_value) * num)
         text += '全体残り凸数：{0}'.format(attack_count)
         await reply(message, message.author.mention, text)
-    else
+    else:
         print('not mention')
         print(message.author)
 
