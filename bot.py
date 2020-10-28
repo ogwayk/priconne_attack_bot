@@ -37,7 +37,8 @@ async def on_message(message):
         text = ''
         member_dict = {}
 
-        guild_users = message.server.members
+        guild_users = await guild.members
+        #guild_users = message.server.members
         #guild_users = channel.members
         #print(channel.member_count)
         print(guild_users)
