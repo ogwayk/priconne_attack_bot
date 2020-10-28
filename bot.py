@@ -37,10 +37,10 @@ async def on_message(message):
         text = ''
         member_dict = {}
 
-        guild_users = await guild.members
+        #guild_users = await guild.members
         #guild_users = message.server.members
-        #guild_users = channel.members
-        #print(channel.member_count)
+        guild_users = channel.members
+        print(client.users)
         print(guild_users)
         if len(reactions) > 0:
             for reaction in reactions:
