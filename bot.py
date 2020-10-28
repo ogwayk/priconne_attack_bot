@@ -14,8 +14,7 @@ client = discord.Client(intents = intents)
 @client.event
 # 起動通知
 async def on_ready():
-    print(discord.__version__)
-    print('ログインしました')
+    print('リンクスタート！')
 
 @client.event
 async def on_message(message):
@@ -41,20 +40,15 @@ async def on_message(message):
         text = ''
         member_dict = {}
 
-        #await guild.chunk()
-        #guild_users = await guild.members
-        #guild_users = message.server.members
-        guild_users = guild.members
-        #guild_users = await guild.fetch_members(limit=150).flatten()
-        print(client.users)
-        print(guild_users)
+        channel_users = channel.members
+        print(channel_users)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
                 # print(users)
                 match = re.search(r'\d', reaction.emoji)
                 if match is not None:
-                    member_dict[match.group()] = get_reaction_member(users, guild_users)
+                    member_dict[match.group()] = get_reaction_member(users, channel_users)
         else:
              text = '私、相手のスリーサイズはわかるんですが今日の残り凸はわかりません…。'
              await reply(message, message.author.mention, text)
@@ -97,11 +91,11 @@ async def get_today_reactions(histories, channel):
     return []
 
 # リアクションしているメンバーを取得
-def get_reaction_member(users, guild_users):
+def get_reaction_member(users, channel_users):
     remain_members = []
     for user in users:
         # 今サーバーにいない人のリアクションは抜く
-        if user in guild_users:
+        if user in channel_users:
             remain_members.append(get_user_name(user))
     return remain_members
 
