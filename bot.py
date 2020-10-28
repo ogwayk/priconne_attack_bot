@@ -37,11 +37,11 @@ async def on_message(message):
         text = ''
         member_dict = {}
 
-        
-        await guild.chunk()
+        #await guild.chunk()
         #guild_users = await guild.members
         #guild_users = message.server.members
-        guild_users = channel.members
+        #guild_users = channel.members
+        guild_users = await guild.fetch_members(limit=150).flatten()
         print(client.users)
         print(guild_users)
         if len(reactions) > 0:
@@ -72,9 +72,6 @@ async def on_message(message):
             text += '残り{0}凸の人\n{1}\n\n'.format(num, ', '.join(dict_value), len(dict_value) * num)
         text += '全体残り凸数：{0}'.format(attack_count)
         await reply(message, message.author.mention, text)
-    else:
-        print('not mention')
-        print(message.author)
 
 # 凸完了チャンネルを取得する
 def get_channel(guild):
