@@ -6,7 +6,9 @@ import re
 import datetime
 import os
 
-client = discord.Client()
+intents = discord.Intents.all()
+intents.typing = False
+client = discord.Client(intents = intents)
 
 @client.event
 # 起動通知
