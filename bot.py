@@ -40,8 +40,8 @@ async def on_message(message):
         #await guild.chunk()
         #guild_users = await guild.members
         #guild_users = message.server.members
-        #guild_users = channel.members
-        guild_users = await guild.fetch_members(limit=150).flatten()
+        guild_users = guild.members
+        #guild_users = await guild.fetch_members(limit=150).flatten()
         print(client.users)
         print(guild_users)
         if len(reactions) > 0:
