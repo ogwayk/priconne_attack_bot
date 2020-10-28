@@ -36,9 +36,11 @@ async def on_message(message):
         # 数字のスタンプのリアクションのメンバーを取得
         text = ''
         member_dict = {}
-        guild_users = channel.members
+
+        guild_users = message.server.members
+        #guild_users = channel.members
         #print(channel.member_count)
-        print(channel.members)
+        print(guild_users)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
