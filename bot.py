@@ -36,9 +36,11 @@ async def on_message(message):
         text = ''
         member_dict = {}
         guild_users = guild.members
+        print(guild_users)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
+                print(users)
                 match = re.search(r'\d', reaction.emoji)
                 if match is not None:
                     member_dict[match.group()] = get_reaction_member(users, guild_users)
@@ -46,6 +48,7 @@ async def on_message(message):
              text = '私、相手のスリーサイズはわかるんですが今日の残り凸はわかりません…。'
              await reply(message, message.author.mention, text)
         
+        print(member_dict)
         # n+1凸にスタンプ押している人をn凸のリストから削除する
         if "1" in member_dict and "2" in member_dict:
            member_dict['1'] = list(set(member_dict['1']) - set(member_dict['2']))
