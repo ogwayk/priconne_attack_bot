@@ -30,6 +30,7 @@ async def on_message(message):
         # 凸完了チャンネルからメッセージを拾ってくる
         print(channel.name)
         histories = await channel.history(limit = None).flatten()
+        print(histories)
         reactions = await get_today_reactions(histories, channel)
 
         # 数字のスタンプのリアクションのメンバーを取得
