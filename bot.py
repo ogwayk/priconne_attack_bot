@@ -6,13 +6,15 @@ import re
 import datetime
 import os
 
-intents = discord.Intents.all()
-intents.typing = False
-client = discord.Client(intents = intents)
+#intents = discord.Intents.all()
+#intents.typing = False
+#client = discord.Client(intents = intents)
+client = discord.Client()
 
 @client.event
 # 起動通知
 async def on_ready():
+    print(discord.__version__)
     print('ログインしました')
 
 @client.event
