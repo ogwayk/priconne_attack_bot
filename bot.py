@@ -27,6 +27,7 @@ async def on_message(message):
         # 凸完了チャンネルの取得
         guild = client.get_guild(int(os.environ['GUILD_ID']))
         channel = get_channel(guild)
+        print(guild.name)
         # 凸完了チャンネルからメッセージを拾ってくる
         # print(channel.name)
         histories = await channel.history(limit = None).flatten()
@@ -37,7 +38,7 @@ async def on_message(message):
         member_dict = {}
         guild_users = guild.members
         print(guild.member_count)
-        print(guild_users)
+        print(guild.members)
         if len(reactions) > 0:
             for reaction in reactions:
                 users = await reaction.users().flatten()
@@ -49,7 +50,7 @@ async def on_message(message):
              text = '私、相手のスリーサイズはわかるんですが今日の残り凸はわかりません…。'
              await reply(message, message.author.mention, text)
         
-        print(member_dict)
+        # print(member_dict)
         # n+1凸にスタンプ押している人をn凸のリストから削除する
         if "1" in member_dict and "2" in member_dict:
            member_dict['1'] = list(set(member_dict['1']) - set(member_dict['2']))
