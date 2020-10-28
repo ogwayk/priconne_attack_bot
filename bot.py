@@ -11,7 +11,6 @@ client = discord.Client()
 @client.event
 # 起動通知
 async def on_ready():
-    client.member_cache_flags(None)
     print('ログインしました')
 
 @client.event
@@ -38,6 +37,8 @@ async def on_message(message):
         text = ''
         member_dict = {}
 
+        
+        await guild.chunk()
         #guild_users = await guild.members
         #guild_users = message.server.members
         guild_users = channel.members
