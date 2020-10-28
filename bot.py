@@ -11,7 +11,7 @@ client = discord.Client()
 @client.event
 # 起動通知
 async def on_ready():
-    client.member_cache_flag(None)
+    client.member_cache_flags(None)
     print('ログインしました')
 
 @client.event
