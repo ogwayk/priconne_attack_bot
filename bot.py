@@ -37,7 +37,7 @@ async def get_uma_data(message):
     gc = gspread.authorize(credentials)
     worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
     import_value = worksheet.acell('A2').value
-    reply(message, message.author.mention, import_value)
+    await reply(message, message.author.mention, import_value)
 
 async def pricone(message):
     # 凸完了チャンネルの取得
