@@ -37,13 +37,13 @@ async def on_message(message):
             return
         get_uma_data(message)
 
-def get_uma_data(message):
+async def get_uma_data(message):
     gc = gspread.authorize(credentials)
     worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
     import_value = worksheet.acell('A2').value
-    await reply(message, message.author.mention, import_value)
+    reply(message, message.author.mention, import_value)
 
-def pricone(message):
+async def pricone(message):
     # 凸完了チャンネルの取得
     guild = client.get_guild(int(os.environ['GUILD_ID']))
     channel = get_channel(guild)
