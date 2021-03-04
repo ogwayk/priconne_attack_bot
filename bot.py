@@ -18,7 +18,7 @@ client = discord.Client(intents = intents)
 
 # uma
 credentials = ServiceAccountCredentials.from_json_keyfile_name('../uma-uma-2ae928c61e21.json', scope)
-SPREADSHEET_KEY = '1hL24DKheeJbmvun4UslMN88yDAVqv-iLhKyLJdKPuqw'
+MATCH_SPREADSHEET_KEY = '1hL24DKheeJbmvun4UslMN88yDAVqv-iLhKyLJdKPuqw'
 #client = discord.Client()
 
 @client.event
@@ -39,9 +39,9 @@ async def on_message(message):
 
 def get_uma_data(message):
     gc = gspread.authorize(credentials)
-    worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
+    worksheet = gc.open_by_key(MATCH_SPREADSHEET_KEY).sheet1
     import_value = worksheet.acell('A2').value
-    await reply(message, message.author.mention, import_value)
+    reply(message, message.author.mention, import_value)
 
 def pricone(message):
     # 凸完了チャンネルの取得
