@@ -33,7 +33,8 @@ async def on_message(message):
         await get_uma_data(message)
 
 async def get_uma_data(message):
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(os.environ['gcp-umaumabot-json'], scope)
+    json_dict = json.loads(os.environ['gcp-umaumabot-json'])
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(json_dict, scope)
     gc = gspread.authorize(credentials)
     worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
     import_value = worksheet.acell('A2').value
