@@ -1,5 +1,3 @@
-
-
 import discord
 import sys
 import re
@@ -15,9 +13,6 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 intents = discord.Intents.all()
 intents.typing = False
 client = discord.Client(intents = intents)
-
-# uma
-credentials = ServiceAccountCredentials.from_json_keyfile_name('../uma-uma-2ae928c61e21.json', scope)
 #client = discord.Client()
 
 @client.event
@@ -38,6 +33,7 @@ async def on_message(message):
         get_uma_data(message)
 
 async def get_uma_data(message):
+    credentials = ServiceAccountCredentials.from_json(os.environ['gcp-umaumabot-json'], scope)
     gc = gspread.authorize(credentials)
     worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
     import_value = worksheet.acell('A2').value
