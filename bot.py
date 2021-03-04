@@ -30,7 +30,7 @@ async def on_message(message):
         if '/bye' in message.content:
             await client.logout()
             return
-        get_uma_data(message)
+        await get_uma_data(message)
 
 async def get_uma_data(message):
     credentials = ServiceAccountCredentials.from_json(os.environ['gcp-umaumabot-json'], scope)
