@@ -1,1 +1,1 @@
-web: priconne_attack_bot : python3 bot.py
+web: python3 bot.py
