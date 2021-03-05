@@ -5,10 +5,10 @@ import datetime
 import os
 import gspread
 import json
+import itertools
+import numpy as np
+import copy
 from oauth2client.service_account import ServiceAccountCredentials
-
-
-scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -30,15 +30,79 @@ async def on_message(message):
         if '/bye' in message.content:
             await client.logout()
             return
-        await get_uma_data(message)
 
-async def get_uma_data(message):
+        await uma(message)
+ 
+# スプレッドシートから相性表を取得して整形する
+async def get_uma_data():
+    # 相性表へのアクセス
     json_dict = json.loads(os.environ['gcp-umaumabot-json'])
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(json_dict, scope)
     gc = gspread.authorize(credentials)
     worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
-    import_value = worksheet.acell('A2').value
-    await reply(message, message.author.mention, import_value)
+
+    # スプレッドシートへのアクセス
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('../uma-uma-2ae928c61e21.json', scope)
+    gc = gspread.authorize(credentials)
+    SPREADSHEET_KEY = '1hL24DKheeJbmvun4UslMN88yDAVqv-iLhKyLJdKPuqw'
+    workbook = gc.open_by_key(SPREADSHEET_KEY)
+
+    sheet_data = workbook.worksheet('〇馬抽出').get_all_values()
+    sheet_data = np.array(sheet_data).T.tolist()
+
+    good_uma_data = []
+    for data in sheet_data:
+        data.pop(0)
+        remove_black = [i for i in data if i != '' and i != '#N/A']
+        good_uma_data.append(remove_black)
+    good_uma_data.pop(0)
+
+    return good_uma_data
+
+# 自身の名前を削除する
+def del_name(data:list, name):
+    tmp = copy.copy(data)
+    tmp.remove(name)
+    return tmp
+
+# 相性〇のウマ娘の名前を取得する
+def get_good_uma_names(data_list, target_name):
+    for data in data_list:
+        if data[0] in target_name:
+            return del_name(data, target_name)
+
+    return []
+
+# ウマ用
+async def uma(message):
+    good_uma_data = get_uma_data()
+    
+    # 対象ウマの相性〇リスト名前を取得する
+    target_name = message.content
+    good_names = get_good_uma_names(good_uma_data, target_name)
+
+    if len(good_names) == 0:
+        print('そのウマ娘は未実装のようです。レイ様の次に気になりますね！')
+
+    # 相性◎になるウマの組み合わせを探す
+    names_list = []
+    if  len(good_names) < 4:
+        print('そもそも相性〇のウマ娘が3人もいらっしゃいませんよぉ…')
+    else:
+        a = list(itertools.combinations(good_names, 3))
+        for tmp in a:
+            b = list(itertools.combinations(tmp, 2))
+            okflg = True
+            for c in b:
+                if c[1] not in get_good_uma_names(good_uma_data, c[0]):
+                    okflg = False
+                    break
+            if okflg:
+                names_list.append(tmp)
+
+    await reply(message, message.author.mention, names_list)
+
 
 async def pricone(message):
     # 凸完了チャンネルの取得
@@ -135,4 +199,4 @@ async def reply(message, mention, text):
     await message.channel.send(reply) 
 
 # Botの起動とDiscordサーバーへの接続
-client.run(os.environ['TOKEN'])
+#client.run(os.environ['TOKEN'])
