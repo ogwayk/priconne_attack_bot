@@ -1,1 +1,1 @@
-priconne_attack_bot: python3 bot.py
+miteruzo_bot: python3 bot.py
