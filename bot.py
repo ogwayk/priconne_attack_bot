@@ -84,14 +84,14 @@ async def uma(message):
     # 対象ウマの相性〇リスト名前を取得する
     target_name = message.content
     result = get_good_uma_names(good_uma_data, target_name)
-    good_names = result[0]
-    target_name = result[1]
 
-    if len(good_names) == 0:
+    if len(result) == 0:
         reply_message = 'そのウマ娘は未実装のようです。レイ様の次に気になりますね！'
-    elif len(good_names) < 4:
+    elif len(result[0]) < 4:
         reply_message = 'そもそも相性〇のウマ娘が3人もいらっしゃいませんよぉ…'
     else:
+        good_names = result[0]
+        target_name = result[1]
         # 相性◎になるウマの組み合わせを探す
         combs = list(itertools.combinations(good_names, 3))
         for comb in combs:
@@ -106,6 +106,7 @@ async def uma(message):
         uma_list = ''
         for names in names_list:
             uma_list += '{0}\n'.format(names)
+        print(uma_list)
         reply_message = '{0}と相性◎ループが組めるウマ娘のリストはこちらです！\n{1}'.format(target_name, uma_list)
 
     await reply(message, message.author.mention, reply_message)
