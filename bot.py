@@ -42,7 +42,8 @@ def get_uma_data():
     gc = gspread.authorize(credentials)
 
     # スプレッドシートへのアクセス
-    credentials = ServiceAccountCredentials.from_json(os.environ['gcp-umaumabot-json'], scope)
+    json_dict = json.loads(os.environ['gcp-umaumabot-json'])
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(json_dict, scope)
     gc = gspread.authorize(credentials)
     SPREADSHEET_KEY = '1hL24DKheeJbmvun4UslMN88yDAVqv-iLhKyLJdKPuqw'
     workbook = gc.open_by_key(SPREADSHEET_KEY)
