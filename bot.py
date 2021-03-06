@@ -74,7 +74,7 @@ def get_good_uma_names(data_list, target_name):
     return []
 
 # ウマ用
-def uma(message):
+async def uma(message):
     good_uma_data = get_uma_data()
     
     # 対象ウマの相性〇リスト名前を取得する
