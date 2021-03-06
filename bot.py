@@ -95,29 +95,19 @@ async def uma(message):
 
         # 相性◎になるウマの組み合わせを探す
         combis = list(itertools.combinations(good_names, 3))
-        print(combis)
         for combi in combis:
             pairs = list(itertools.combinations(combi, 2))
-            print(combi)
-            print(pairs)
             okflg = True
             for pair in pairs:
-                print(pair[0], pair[1])
-                print(get_good_uma_names(good_uma_data, pair[0])[0])
                 if pair[1] not in get_good_uma_names(good_uma_data, pair[0])[0]:
                     okflg = False
-                    print('ng')
                     break
             if okflg:
-                print('ok')
-                print(combi)
                 names_list.append(combi)
                 
-
         uma_list = ''
         for names in names_list:
-            uma_list += '{0}\n'.format(names)
-        print(names_list)
+            uma_list += '{0}\n'.format(', '.join(names))
         reply_message = '{0}と相性◎ループが組めるウマ娘のリストはこちらです！\n{1}'.format(target_name, uma_list)
 
     await reply(message, message.author.mention, reply_message)
