@@ -92,6 +92,7 @@ async def uma(message):
     else:
         good_names = result[0]
         target_name = result[1]
+
         # 相性◎になるウマの組み合わせを探す
         combs = list(itertools.combinations(good_names, 3))
         for comb in combs:
@@ -103,6 +104,8 @@ async def uma(message):
                     break
             if okflg:
                 names_list.append(comb)
+                
+        print(names_list)
         uma_list = ''
         for names in names_list:
             uma_list += '{0}\n'.format(names)
