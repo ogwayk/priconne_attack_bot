@@ -103,6 +103,7 @@ async def uma(message):
             okflg = True
             for pair in pairs:
                 print(pair[0], pair[1])
+                print(get_good_uma_names(good_uma_data, pair[0]))
                 if pair[1] not in get_good_uma_names(good_uma_data, pair[0]):
                     okflg = False
                     print('ng')
