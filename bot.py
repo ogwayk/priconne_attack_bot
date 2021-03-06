@@ -63,8 +63,6 @@ def get_uma_data():
 # 自身の名前を削除する
 def del_name(data:list, name):
     tmp = copy.copy(data)
-    print(tmp)
-    print(name)
     tmp.remove(name)
     return tmp
 
