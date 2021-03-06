@@ -72,7 +72,7 @@ def del_name(data:list, name):
 def get_good_uma_names(data_list, target_name):
     for data in data_list:
         if data[0] in target_name:
-            return del_name(data, target_name)
+            return del_name(data, data[0])
 
     return []
 
