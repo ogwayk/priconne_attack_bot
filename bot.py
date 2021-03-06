@@ -70,38 +70,43 @@ def del_name(data:list, name):
 def get_good_uma_names(data_list, target_name):
     for data in data_list:
         if data[0] in target_name:
-            return del_name(data, data[0])
+            return del_name(data, data[0]), data[0]
 
     return []
 
 # ウマ用
 async def uma(message):
+    reply_message = ''
+    names_list = []
+
     good_uma_data = get_uma_data()
     
     # 対象ウマの相性〇リスト名前を取得する
     target_name = message.content
-    good_names = get_good_uma_names(good_uma_data, target_name)
+    good_names, target_name = get_good_uma_names(good_uma_data, target_name)
 
     if len(good_names) == 0:
-        print('そのウマ娘は未実装のようです。レイ様の次に気になりますね！')
-
-    # 相性◎になるウマの組み合わせを探す
-    names_list = []
-    if  len(good_names) < 4:
-        print('そもそも相性〇のウマ娘が3人もいらっしゃいませんよぉ…')
+        reply_message = 'そのウマ娘は未実装のようです。レイ様の次に気になりますね！'
+    elif len(good_names) < 4:
+        reply_message = 'そもそも相性〇のウマ娘が3人もいらっしゃいませんよぉ…'
     else:
-        a = list(itertools.combinations(good_names, 3))
-        for tmp in a:
-            b = list(itertools.combinations(tmp, 2))
+        # 相性◎になるウマの組み合わせを探す
+        combs = list(itertools.combinations(good_names, 3))
+        for comb in combs:
+            pairs = list(itertools.combinations(comb, 2))
             okflg = True
-            for c in b:
-                if c[1] not in get_good_uma_names(good_uma_data, c[0]):
+            for pair in pairs:
+                if pair[1] not in get_good_uma_names(good_uma_data, pair[0]):
                     okflg = False
                     break
             if okflg:
-                names_list.append(tmp)
+                names_list.append(comb)
+        uma_list = ''
+        for names in names_list:
+            uma_list += '{0}\n'.format(names)
+        reply_message = '{0}と相性◎ループが組めるウマ娘のリストはこちらです！\n{1}'.format(target_name, uma_list)
 
-    await reply(message, message.author.mention, names_list)
+    await reply(message, message.author.mention, reply_message)
 
 
 async def pricone(message):
