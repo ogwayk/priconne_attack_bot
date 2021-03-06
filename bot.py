@@ -83,7 +83,9 @@ async def uma(message):
     
     # 対象ウマの相性〇リスト名前を取得する
     target_name = message.content
-    good_names, target_name = get_good_uma_names(good_uma_data, target_name)
+    result = get_good_uma_names(good_uma_data, target_name)
+    good_names = result[0]
+    target_name = result[1]
 
     if len(good_names) == 0:
         reply_message = 'そのウマ娘は未実装のようです。レイ様の次に気になりますね！'
