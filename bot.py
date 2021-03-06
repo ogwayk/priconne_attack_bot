@@ -102,8 +102,10 @@ async def uma(message):
             print(pairs)
             okflg = True
             for pair in pairs:
+                print(parir[0], pair[1])
                 if pair[1] not in get_good_uma_names(good_uma_data, pair[0]):
                     okflg = False
+                    print('ng')
                     break
             if okflg:
                 print('ok')
