@@ -40,7 +40,6 @@ async def get_uma_data():
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(json_dict, scope)
     gc = gspread.authorize(credentials)
-    worksheet = gc.open_by_key(os.environ['MATCH_SPREADSHEET_KEY']).sheet1
 
     # スプレッドシートへのアクセス
     credentials = ServiceAccountCredentials.from_json_keyfile_name('../uma-uma-2ae928c61e21.json', scope)
