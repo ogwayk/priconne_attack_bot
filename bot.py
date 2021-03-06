@@ -100,13 +100,14 @@ async def uma(message):
             pairs = list(itertools.combinations(combi, 2))
             print(combi)
             print(pairs)
-            print('\n')
             okflg = True
             for pair in pairs:
                 if pair[1] not in get_good_uma_names(good_uma_data, pair[0]):
                     okflg = False
                     break
             if okflg:
+                print('ok')
+                print(combi)
                 names_list.append(combi)
                 
 
