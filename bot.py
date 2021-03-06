@@ -31,10 +31,10 @@ async def on_message(message):
             await client.logout()
             return
 
-        await uma(message)
+        uma(message)
  
 # スプレッドシートから相性表を取得して整形する
-async def get_uma_data():
+def get_uma_data():
     # 相性表へのアクセス
     json_dict = json.loads(os.environ['gcp-umaumabot-json'])
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
@@ -74,7 +74,7 @@ def get_good_uma_names(data_list, target_name):
     return []
 
 # ウマ用
-async def uma(message):
+def uma(message):
     good_uma_data = get_uma_data()
     
     # 対象ウマの相性〇リスト名前を取得する
