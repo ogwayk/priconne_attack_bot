@@ -31,7 +31,7 @@ async def on_message(message):
             await client.logout()
             return
 
-        uma(message)
+        await uma(message)
  
 # スプレッドシートから相性表を取得して整形する
 def get_uma_data():
