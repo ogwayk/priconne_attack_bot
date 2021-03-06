@@ -198,4 +198,4 @@ async def reply(message, mention, text):
     await message.channel.send(reply) 
 
 # Botの起動とDiscordサーバーへの接続
-#client.run(os.environ['TOKEN'])
+client.run(os.environ['TOKEN'])
