@@ -108,7 +108,7 @@ async def uma(message):
         uma_list = ''
         for names in names_list:
             uma_list += '{0}\n'.format(', '.join(names))
-        reply_message = '{0}と相性◎ループが組めるウマ娘のリストはこちらです！\n{1}'.format(target_name, uma_list)
+        reply_message = '{0}と相性◎ループが組めるウマ娘のリストはこちらです！\n\n{1}'.format(target_name, uma_list)
 
     await reply(message, message.author.mention, reply_message)
 
@@ -205,7 +205,14 @@ def get_today():
 # 返信
 async def reply(message, mention, text):
     reply = '{0} \n {1}'.format(mention, text)
-    await message.channel.send(reply) 
+    # 200文字以上はエラーになるので複数回に分ける
+    if len(reply) >= 200:     
+        while len(reply) > 200:
+            slice_reply = reply[:200]
+            reply = reply[200:]
+            await message.channel.send(slice_reply)
+    else:
+        await message.channel.send(reply) 
 
 # Botの起動とDiscordサーバーへの接続
 client.run(os.environ['TOKEN'])
