@@ -205,11 +205,12 @@ def get_today():
 # 返信
 async def reply(message, mention, text):
     reply = '{0} \n {1}'.format(mention, text)
-    # 200文字以上はエラーになるので複数回に分ける
-    if len(reply) >= 200:     
-        while len(reply) > 200:
-            slice_reply = reply[:200]
-            reply = reply[200:]
+    # 2000文字以上はエラーになるので複数回に分ける
+    slice_num = 2000
+    if len(reply) >= slice_num:     
+        while len(reply) > slice_num:
+            slice_reply = reply[:slice_num]
+            reply = reply[slice_num:]
             await message.channel.send(slice_reply)
     else:
         await message.channel.send(reply) 
