@@ -207,6 +207,7 @@ async def reply(message, mention, text):
     reply = '{0} \n {1}'.format(mention, text)
     # 2000文字以上はエラーになるので複数回に分ける
     slice_num = 2000
+    print(reply)
     if len(reply) >= slice_num:     
         while len(reply) > slice_num:
             slice_reply = reply[:slice_num]
