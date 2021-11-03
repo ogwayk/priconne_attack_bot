@@ -220,7 +220,8 @@ async def reply(message, mention, text):
 
 #定期的に発言させる
 @tasks.loop(seconds=5.0, count=5)
-async def send_message_every_10sec():
+async def loop_message():
+    await client.wait_until_ready()
     channel = client.get_channel(831161592564678707)
     print('リンクスタート！')
     await channel.send("10秒経ったよ")
