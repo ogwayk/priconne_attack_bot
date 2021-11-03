@@ -9,6 +9,7 @@ import itertools
 import numpy as np
 import copy
 from oauth2client.service_account import ServiceAccountCredentials
+from discord.ext import tasks
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -218,7 +219,7 @@ async def reply(message, mention, text):
         await message.channel.send(reply) 
 
 #定期的に発言させる
-@tasks.loop(seconds=10)
+@tasks.loop(seconds=5.0, count=5)
 async def send_message_every_10sec():
     channel = client.get_channel(831161592564678707)
     await channel.send("10秒経ったよ")
