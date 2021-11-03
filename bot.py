@@ -20,7 +20,7 @@ client = discord.Client(intents = intents)
 # 起動通知
 async def on_ready():
     print('リンクスタート！')
-    loop_message().start()
+    loop_message.start()
 
 @client.event
 async def on_message(message):
@@ -220,12 +220,12 @@ async def reply(message, mention, text):
         await message.channel.send(reply) 
 
 #定期的に発言させる
+
 @tasks.loop(seconds=5.0, count=5)
 async def loop_message():
     channel = client.get_channel(831161592564678707)
-    print('リンクスタート！')
+    print('10秒経ったよ')
     await channel.send("10秒経ったよ")
-    
 
 # Botの起動とDiscordサーバーへの接続
 client.run(os.environ['TOKEN'])
