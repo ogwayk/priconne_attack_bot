@@ -217,5 +217,12 @@ async def reply(message, mention, text):
     else:
         await message.channel.send(reply) 
 
+#定期的に発言させる
+@tasks.loop(seconds=10)
+async def send_message_every_10sec():
+    channel = client.get_channel(831161592564678707)
+    await channel.send("10秒経ったよ")
+    
+
 # Botの起動とDiscordサーバーへの接続
 client.run(os.environ['TOKEN'])
