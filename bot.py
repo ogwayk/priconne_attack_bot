@@ -220,11 +220,10 @@ async def reply(message, mention, text):
         await message.channel.send(reply) 
 
 #定期的に発言させる
-
-@tasks.loop(seconds=5.0, count=1)
-async def loop_message():
-    channel = client.get_channel(905403193385713664)
-    await channel.send("shop")
+#@tasks.loop(seconds=5.0, count=1)
+#async def loop_message():
+#    channel = client.get_channel(905403193385713664)
+#    await channel.send("shop")
 
 # Botの起動とDiscordサーバーへの接続
 client.run(os.environ['TOKEN'])
